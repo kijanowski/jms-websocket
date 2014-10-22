@@ -9,20 +9,29 @@ How does it work?
 -----------------
 
 On the client side, a websocket session is opened with java script:
-websocketSession = new WebSocket('ws://' + ...);
+
+`websocketSession = new WebSocket('ws://' + ...);`
+
 and messages are sent by:
-websocketSession.send(msg);
-The callback handler is implemented as f_onmessage(evt) which adds a message to the <div> element.
+
+`websocketSession.send(msg);`
+
+The callback handler is implemented as `f_onmessage(evt)` which adds a message to the &lt;div&gt; element.
 
 On the server side, there is a websocket server. When a message arrives from a websocket client, it uses the
 injected `QueueSenderSessionBean` service to send a message to a JMS queue.
+
 A MessageDrivenBean picks up that message and fires a CDI event.
+
 The websocket server listens for CDI events and picks it up and send a message to all websocket clients.
 
+
 There is a REST service, too. The Endpoint class exposes a GET method which is available under:
-http://127.0.0.1:8080/jms-websocket-1.0-SNAPSHOT/rest/example/
+`http://127.0.0.1:8080/jms-websocket-1.0-SNAPSHOT/rest/example/`
 The REST service uses the injected `QueueSenderSessionBean` service to send a message to a JMS queue.
+
 A MessageDrivenBean picks up that message and fires a CDI event.
+
 The websocket server listens for CDI events and picks it up and send a message to all websocket clients.
 
 How to test it?
